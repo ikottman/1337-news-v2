@@ -1,6 +1,6 @@
 <script>
   import Header from './lib/Header.svelte';
-import Stories from './lib/Stories.svelte'
+  import Stories from './lib/Stories.svelte'
 </script>
 
 <Header />
