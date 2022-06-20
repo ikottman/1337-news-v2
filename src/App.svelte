@@ -1,7 +1,9 @@
 <script>
-  import Stories from './lib/Stories.svelte'
+  import Header from './lib/Header.svelte';
+import Stories from './lib/Stories.svelte'
 </script>
 
+<Header />
 <main>
   <Stories />
 </main>
