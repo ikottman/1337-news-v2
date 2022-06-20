@@ -8,6 +8,8 @@
     "build": "vite build",
     "preview": "vite preview"
   },
+  "dependencies": {
+  },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^1.0.0-next.30",
     "svelte": "^3.44.0",
