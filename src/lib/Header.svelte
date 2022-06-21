@@ -15,10 +15,6 @@
   a:hover {
     border-bottom: 2px solid;
   }
-
-  h3 {
-    margin: 10px;
-  }
 </style>
 
 <h3><a href={'?page=0#stories'}>1337 News</a></h3>

@@ -1,21 +1,20 @@
 <script>
-  import { onMount } from 'svelte';
   import { getItem, getItems } from './ApiClient';
   
-  // TODO: use store for the seleced story and navigation
+  export let storyId;
+
   let story = { title: '', url: '' };
   let comments = [];
-  onMount(async () => {
-    const storyId = window.location.hash.split('/')[1];
-    story = await getItem(storyId);
-    comments = await getItems(story.kids, 0, 30);
-  });
+
+  $: getItem(storyId)
+    .then((item) => story = item)
+    .then(() => getItems(story.kids, 0, 30))
+    .then((items) => comments = items);
 </script>
 
 <style>
   ul {
     list-style-type: none;
-    margin: 10px;
     padding: 0px;
   }
 
@@ -36,6 +35,10 @@
     border-bottom: 2px solid;
   }
 
+  li {
+    margin-top: 10px;
+  }
+
   .username {
     font-size: 12px;
     font-weight: bold;
@@ -52,11 +55,13 @@
 </style>
 
 <ul>
+  {#if story.title}
   <li>
     <a href={story.url}>
       {story.title}
     </a>
   </li>
+  {/if}
   {#each comments as comment}
     {#if comment.text}
     <li>
