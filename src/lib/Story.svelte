@@ -7,7 +7,7 @@
     {story.title}
   </a>
   <br />
-  <a class="comments" href="/comments/{story.id}">
+  <a class="comments" href="{import.meta.env.BASE_URL}comments/{story.id}">
     {story.descendants ? `${story.descendants}` : "0"}
     {story.descendants === 1 ? "comment" : "comments"}
   </a>

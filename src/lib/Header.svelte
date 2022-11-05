@@ -1,4 +1,4 @@
-<h3><a href={"/"}>1337 News</a></h3>
+<h3><a href={import.meta.env.BASE_URL}>1337 News</a></h3>
 
 <style>
   a {
