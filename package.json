@@ -1,11 +1,11 @@
 {
-  "name": "2674_news",
+  "name": "1337-news-v2",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build --base=/apps/1337-news-v2",
     "preview": "vite preview"
   },
   "dependencies": {

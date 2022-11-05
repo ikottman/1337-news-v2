@@ -1,16 +1,57 @@
 <script>
-  import { getItem, getItems } from './ApiClient';
-  
+  import { getItem, getItems } from "./ApiClient";
+
   export let storyId;
 
-  let story = { title: '', url: '' };
+  let story = { title: "", url: "" };
   let comments = [];
 
   $: getItem(storyId)
-    .then((item) => story = item)
+    .then((item) => (story = item))
     .then(() => getItems(story.kids, 0, 30))
-    .then((items) => comments = items);
+    .then((items) => (comments = items));
 </script>
+
+<ul>
+  {#if story.title}
+    <li>
+      <a href={story.url}>
+        {story.title}
+      </a>
+    </li>
+  {/if}
+  {#if story.text}
+    <li>
+      <span class="username">{story.by}</span>
+      <p class="comment">{@html story.text}</p>
+      <div>
+        <div class="divider" />
+      </div>
+    </li>
+  {/if}
+  {#each comments as comment}
+    {#if comment.text}
+      <li>
+        {#if comment.kids}
+          <a class="username" href={`#comments/${comment.id}`}>
+            <span
+              >{comment.by} - {comment.kids.length} child {comment.kids
+                .length === 1
+                ? "comment"
+                : "comments"}</span
+            >
+          </a>
+        {:else}
+          <span class="username">{comment.by}</span>
+        {/if}
+        <p class="comment">{@html comment.text}</p>
+        <div>
+          <div class="divider" />
+        </div>
+      </li>
+    {/if}
+  {/each}
+</ul>
 
 <style>
   ul {
@@ -21,6 +62,7 @@
   a {
     outline: none;
     text-decoration: none;
+    font-weight: bold;
   }
 
   a:link {
@@ -53,30 +95,3 @@
     border-bottom: 2px solid;
   }
 </style>
-
-<ul>
-  {#if story.title}
-  <li>
-    <a href={story.url}>
-      {story.title}
-    </a>
-  </li>
-  {/if}
-  {#each comments as comment}
-    {#if comment.text}
-    <li>
-      {#if comment.kids}
-        <a class="username" href={`#comments/${comment.id}`}>
-          <span>{comment.by} - {comment.kids.length} child {comment.kids.length === 1 ? 'comment' : 'comments'}</span>
-        </a>
-      {:else}
-        <span class="username">{comment.by}</span>
-      {/if}
-      <p class="comment">{@html comment.text}</p>
-      <div>
-        <div class="divider"/>
-      </div>
-    </li>
-    {/if}
-  {/each}
-</ul>
