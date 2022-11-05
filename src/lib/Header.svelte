@@ -1,3 +1,5 @@
+<h3><a href={"/"}>1337 News</a></h3>
+
 <style>
   a {
     outline: none;
@@ -16,5 +18,3 @@
     border-bottom: 2px solid;
   }
 </style>
-
-<h3><a href={'?page=0#stories'}>1337 News</a></h3>

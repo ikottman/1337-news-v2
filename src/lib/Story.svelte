@@ -2,6 +2,17 @@
   export let story;
 </script>
 
+<li>
+  <a href={story.url}>
+    {story.title}
+  </a>
+  <br />
+  <a class="comments" href="/comments/{story.id}">
+    {story.descendants ? `${story.descendants}` : "0"}
+    {story.descendants === 1 ? "comment" : "comments"}
+  </a>
+</li>
+
 <style>
   a {
     outline: none;
@@ -31,13 +42,3 @@
     display: inline-block;
   }
 </style>
-
-<li>
-  <a href={story.url}>
-    {story.title}
-  </a>
-  <br/>
-  <a class='comments' href={`#comments/${story.id}`}>
-    {story.descendants ? `${story.descendants}` : '0'} {story.descendants === 1 ? 'comment' : 'comments'}
-  </a>
-</li>

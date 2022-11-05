@@ -1,15 +1,16 @@
 <script>
+  import { onMount } from "svelte";
   import { getItem, getItems } from "./ApiClient";
 
   export let storyId;
-
-  let story = { title: "", url: "" };
+  let story = {};
   let comments = [];
-
-  $: getItem(storyId)
-    .then((item) => (story = item))
-    .then(() => getItems(story.kids, 0, 30))
-    .then((items) => (comments = items));
+  console.log("storyId", storyId);
+  onMount(async () => {
+    console.log("got storyId", storyId);
+    story = await getItem(storyId);
+    comments = await getItems(story.kids, 0, 30);
+  });
 </script>
 
 <ul>
@@ -20,7 +21,8 @@
       </a>
     </li>
   {/if}
-  {#if story.text}
+  <!-- ask or show HN posts-->
+  {#if story.text && story.type === "story"}
     <li>
       <span class="username">{story.by}</span>
       <p class="comment">{@html story.text}</p>
@@ -33,7 +35,7 @@
     {#if comment.text}
       <li>
         {#if comment.kids}
-          <a class="username" href={`#comments/${comment.id}`}>
+          <a class="username" href={`/comments/${comment.id}`}>
             <span
               >{comment.by} - {comment.kids.length} child {comment.kids
                 .length === 1
