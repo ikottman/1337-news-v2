@@ -20,7 +20,7 @@
     <div class="divider" />
   {/each}
   <li>
-    <a href="?page={page + 1}">goto page {page}</a>
+    <a href="?page={page + 1}">goto page {page + 1}</a>
   </li>
 </ul>
 
