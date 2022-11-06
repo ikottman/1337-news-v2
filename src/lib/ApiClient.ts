@@ -11,14 +11,6 @@ export type Item = {
     text?: string,
     parent?: number,
   };
-
-  function getPage(): number {
-    const param = new URLSearchParams(window.location.search).get('page');
-    if (param) {
-      return Number.parseInt(param);
-    }
-    return 0;
-  }
   
   function get(path: string): Promise<any> {
     return fetch(`https://hacker-news.firebaseio.com/v0/${path}`).then(r => r.json());
@@ -34,7 +26,6 @@ export type Item = {
   }
   
   const ITEMS_PER_PAGE = 30;
-  export function getStories(type: string) {
-    const page = getPage();
+  export function getStories(type: string, page: number) {
     return get(`${type}stories.json`).then(ids => getItems(ids, page, ITEMS_PER_PAGE));
   }

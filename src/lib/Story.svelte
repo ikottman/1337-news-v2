@@ -17,6 +17,7 @@
   a {
     outline: none;
     text-decoration: none;
+    border-bottom: 2px solid transparent;
   }
 
   a:link {
