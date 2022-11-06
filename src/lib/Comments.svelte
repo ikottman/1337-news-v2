@@ -35,10 +35,7 @@
     {#if comment.text}
       <li>
         {#if comment.kids}
-          <a
-            class="username"
-            href={`${import.meta.env.BASE_URL}comments/${comment.id}`}
-          >
+          <a class="username" href={`/comments/${comment.id}`}>
             <span
               >{comment.by} - {comment.kids.length} child {comment.kids
                 .length === 1
