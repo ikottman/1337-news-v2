@@ -64,6 +64,7 @@
   .ignore {
     justify-self: right;
     padding-right: 10px;
+    user-select: none;
   }
 
   .ignored {
