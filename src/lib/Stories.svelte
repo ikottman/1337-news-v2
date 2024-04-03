@@ -1,16 +1,18 @@
 <script lang="ts">
-  import { onMount } from "svelte";
-  import { getStories } from "./ApiClient";
-  import Story from "./Story.svelte";
+  import { onMount } from 'svelte';
+  import { getStories } from './ApiClient';
+  import { getIgnoredItemIds } from './Storage';
+  import Story from './Story.svelte';
 
   let stories = [];
 
   // pagination
-  const param = new URLSearchParams(window.location.search).get("page");
+  const param = new URLSearchParams(window.location.search).get('page');
   const page = param ? Number.parseInt(param) : 0;
 
   onMount(async () => {
-    stories = await getStories("top", page);
+    const filteredItemIds = getIgnoredItemIds();
+    stories = (await getStories('top', page)).filter((story) => !filteredItemIds.includes(story.id.toString()));
   });
 </script>
 

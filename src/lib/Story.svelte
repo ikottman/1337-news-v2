@@ -1,16 +1,28 @@
 <script>
+  import { ignoreItem } from './Storage';
   export let story;
+  let isIgnored = false;
+
+  function ignoreStory() {
+    if (!isIgnored) {
+      ignoreItem(story.id.toString());
+      isIgnored = true;
+    }
+  }
 </script>
 
-<li>
+<li class:ignored={isIgnored}>
   <a href={story.url}>
     {story.title}
   </a>
   <br />
-  <a class="comments" href="/comments/{story.id}">
-    {story.descendants ? `${story.descendants}` : "0"}
-    {story.descendants === 1 ? "comment" : "comments"}
-  </a>
+  <div class="grid">
+    <a class="comments" href="/comments/{story.id}">
+      {story.descendants ? `${story.descendants}` : '0'}
+      {story.descendants === 1 ? 'comment' : 'comments'}
+    </a>
+    <div class="ignore" on:dblclick={ignoreStory}>ignore</div>
+  </div>
 </li>
 
 <style>
@@ -18,6 +30,7 @@
     outline: none;
     text-decoration: none;
     border-bottom: 2px solid transparent;
+    white-space: nowrap;
   }
 
   a:link {
@@ -38,8 +51,23 @@
 
   .comments {
     font-size: 14px;
+    display: inline-block;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: min-content auto;
+    align-content: self;
     margin-top: 10px;
     margin-bottom: 10px;
-    display: inline-block;
+  }
+
+  .ignore {
+    justify-self: right;
+    padding-right: 10px;
+  }
+
+  .ignored {
+    background-color: black;
   }
 </style>
