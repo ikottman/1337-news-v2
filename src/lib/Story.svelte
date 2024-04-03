@@ -30,7 +30,6 @@
     outline: none;
     text-decoration: none;
     border-bottom: 2px solid transparent;
-    white-space: nowrap;
   }
 
   a:link {
@@ -51,7 +50,7 @@
 
   .comments {
     font-size: 14px;
-    display: inline-block;
+    white-space: nowrap;
   }
 
   .grid {
