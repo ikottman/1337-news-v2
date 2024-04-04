@@ -12,3 +12,8 @@ export function ignoreItem(id: string) {
   }
   localStorage.setItem(STORAGE_KEY, [...currentItems, id].join(','))
 }
+
+export function unIgnoreItem(id: string) {
+  const currentItems = getIgnoredItemIds();
+  localStorage.setItem(STORAGE_KEY, currentItems.filter(itemId => itemId !== id).join(','))
+}

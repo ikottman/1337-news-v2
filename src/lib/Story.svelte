@@ -1,27 +1,42 @@
 <script>
-  import { ignoreItem } from './Storage';
+  import { ignoreItem, unIgnoreItem } from './Storage';
   export let story;
   let isIgnored = false;
+  let clickedStart = null;
 
-  function ignoreStory() {
-    if (!isIgnored) {
-      ignoreItem(story.id.toString());
-      isIgnored = true;
+  function onRelease() {
+    if (clickedStart != null && new Date().getTime() - clickedStart > 500) {
+      if (isIgnored) {
+        unIgnoreItem(story.id.toString());
+        isIgnored = false;
+      } else {
+        ignoreItem(story.id.toString());
+        isIgnored = true;
+      }
     }
+    clickedStart = null;
   }
 </script>
 
-<li class:ignored={isIgnored}>
+<li
+  class:ignored={isIgnored}
+  on:touchstart={() => {
+    clickedStart = new Date().getTime();
+  }}
+  on:touchend={onRelease}
+  on:touchmove={() => {
+    clickedStart = null;
+  }}
+>
   <a href={story.url}>
     {story.title}
   </a>
   <br />
-  <div class="grid">
+  <div class="spacing">
     <a class="comments" href="/comments/{story.id}">
       {story.descendants ? `${story.descendants}` : '0'}
       {story.descendants === 1 ? 'comment' : 'comments'}
     </a>
-    <div class="ignore" on:dblclick={ignoreStory}>ignore</div>
   </div>
 </li>
 
@@ -53,18 +68,9 @@
     white-space: nowrap;
   }
 
-  .grid {
-    display: grid;
-    grid-template-columns: min-content auto;
-    align-content: self;
+  .spacing {
     margin-top: 10px;
     margin-bottom: 10px;
-  }
-
-  .ignore {
-    justify-self: right;
-    padding-right: 10px;
-    user-select: none;
   }
 
   .ignored {
